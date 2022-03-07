@@ -18,6 +18,9 @@
             public Ok(TOk value) =>
                 Value = value;
 
+            public override string ToString() =>
+                $"Ok ({Value.ToString()})";
+
         }
 
         internal sealed class Fail : Res<TOk, TFail>
@@ -28,6 +31,10 @@
 
             public Fail(TFail error) =>
                 Error = error;
+            
+            
+            public override string ToString() =>
+                $"Fail ({Error.ToString()})";
 
         }
 

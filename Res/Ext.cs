@@ -47,6 +47,31 @@ namespace ComradeVanti.CSharpTools
             }
         }
 
+        /// <summary>
+        ///     Executes one of two functions depending on if the result is ok or a failure
+        ///     and returns the result
+        /// </summary>
+        /// <param name="res">The result</param>
+        /// <param name="okF">The function to execute if the result it ok</param>
+        /// <param name="failF">The function to execute if the result is a failure</param>
+        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TOut">The type of the function output</typeparam>
+        /// <returns>The output of the executed function</returns>
+        public static TOut Match<TOk, TFail, TOut>(this Res<TOk, TFail> res, Func<TOk, TOut> okF, Func<TFail, TOut> failF)
+        {
+            switch (res)
+            {
+                case Res<TOk, TFail>.Ok ok:
+                    return okF(ok.Value);
+                case Res<TOk, TFail>.Fail fail:
+                    return failF(fail.Error);
+                default:
+                    // This should never happen
+                    throw new InvalidOperationException("Result invalid!");
+            }
+        }
+
     }
 
 }

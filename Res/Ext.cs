@@ -1,4 +1,6 @@
-﻿namespace ComradeVanti.CSharpTools
+﻿using System;
+
+namespace ComradeVanti.CSharpTools
 {
 
     public static class Ext
@@ -23,6 +25,27 @@
         /// <returns>Whether the result is a failure</returns>
         public static bool IsFail<TOk, TFail>(this Res<TOk, TFail> res) =>
             res is Res<TOk, TFail>.Fail;
+
+        /// <summary>
+        ///     Executes one of two actions depending on if the result is ok or a failure
+        /// </summary>
+        /// <param name="res">The result</param>
+        /// <param name="okAction">The action to execute if the result it ok</param>
+        /// <param name="failAction">The action to execute if the result is a failure</param>
+        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        public static void Match<TOk, TFail>(this Res<TOk, TFail> res, Action<TOk> okAction, Action<TFail> failAction)
+        {
+            switch (res)
+            {
+                case Res<TOk, TFail>.Ok ok:
+                    okAction(ok.Value);
+                    break;
+                case Res<TOk, TFail>.Fail fail:
+                    failAction(fail.Error);
+                    break;
+            }
+        }
 
     }
 

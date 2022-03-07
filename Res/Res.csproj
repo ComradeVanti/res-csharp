@@ -4,6 +4,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
+        <AssemblyName>ComradeVanti.CSharpTools.Res</AssemblyName>
+        <RootNamespace>ComradeVanti.CSharpTools</RootNamespace>
     </PropertyGroup>
 
 </Project>

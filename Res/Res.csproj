@@ -11,6 +11,21 @@
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>ComradeVanti.CSharpTools.Res</PackageId>
+        <Title>Res</Title>
+        <PackageVersion>1.0.0</PackageVersion>
+        <Authors>ComradeVanti</Authors>
+        <Description>A C# library that mimics F#'s results</Description>
+        <PackageIcon>Icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/ComradeVanti/res-csharp</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>functional, result, fsharp</PackageTags>
+        <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
+    </PropertyGroup>
+
     <ItemGroup>
         <None Include="../README.md" Pack="true" PackagePath="\" />
         <None Include="../Icon.png" Pack="true" PackagePath="\" />

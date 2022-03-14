@@ -2,7 +2,7 @@
 
 namespace ComradeVanti.CSharpTools;
 
-public class ChainingTests
+public class MappingTests
 {
 
     [Property]

@@ -3,12 +3,10 @@ using FsCheck.Xunit;
 
 namespace ComradeVanti.CSharpTools;
 
-public class GeneralTests
+public class EqualityTests
 {
 
-    [Property]
-    public bool Results_Can_Not_Be_Ok_And_Fail(Res<int, string> res) =>
-        res.IsOk() != res.IsFail();
+   
 
     [Property]
     public bool Results_With_Equal_Value_Are_Equal(int i) =>

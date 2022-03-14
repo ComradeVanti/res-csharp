@@ -28,7 +28,7 @@ public class ChainingTests
            .Bind(it => Res.Ok<int, string>(it * 2))
            .Match(_ => false,
                   e => e == error);
-    
+
     [Property]
     public bool Bind_Failure_With_Fail_Function_Is_Original_Failure(string error) =>
         Res.Fail<int, string>(error)
@@ -42,26 +42,40 @@ public class ChainingTests
            .Bind(_ => Res.Fail<int, string>("Oh no"))
            .Match(_ => false,
                   e => e == "Oh no");
-    
+
     [Property]
     public bool Bind_Ok_With_Ok_Function_Is_Ok(int value) =>
         Res.Ok<int, string>(value)
            .Bind(it => Res.Ok<int, string>(it * 2))
            .Match(it => it == value * 2,
                   _ => false);
-    
+
     [Property]
     public bool Map_Failure_Is_Original_Failure(string error) =>
         Res.Fail<int, string>(error)
            .Map(it => it * 2)
            .Match(_ => false,
                   e => e == error);
-    
+
     [Property]
     public bool Map_Ok_Is_Mapped_Ok(int value) =>
         Res.Ok<int, string>(value)
            .Map(it => it * 2)
            .Match(it => it == value * 2,
+                  _ => false);
+
+    [Property]
+    public bool MapError_Failure_Is_Mapped_Failure(string error) =>
+        Res.Fail<int, string>(error)
+           .MapError(it => it + it)
+           .Match(_ => false,
+                  it => it == error + error);
+
+    [Property]
+    public bool MapError_Ok_Is_Original_Ok(int value) =>
+        Res.Ok<int, string>(value)
+           .MapError(it => it + it)
+           .Match(it => it == value,
                   _ => false);
 
 }

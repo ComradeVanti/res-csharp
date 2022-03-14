@@ -99,6 +99,20 @@ namespace ComradeVanti.CSharpTools
             res.Match(it => Res.Ok<TMapped, TFail>(mapF(it)),
                       Res.Fail<TMapped, TFail>);
 
+        /// <summary>
+        ///     Applies the given function to the results error if present and returns the
+        ///     output in a new result
+        /// </summary>
+        /// <param name="res">The result</param>
+        /// <param name="mapF">The mapping function</param>
+        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TMapped">The type of the mapped value</typeparam>
+        /// <returns>The mapped result</returns>
+        public static Res<TOk, TMapped> MapError<TOk, TFail, TMapped>(this Res<TOk, TFail> res, Func<TFail, TMapped> mapF) =>
+            res.Match(Res.Ok<TOk, TMapped>,
+                      it => Res.Fail<TOk, TMapped>(mapF(it)));
+
     }
 
 }

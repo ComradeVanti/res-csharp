@@ -22,4 +22,32 @@ public class ChainingTests
         res.Match(_ => res.IsOk(),
                   _ => res.IsFail());
 
+    [Property]
+    public bool Bind_Failure_With_Ok_Function_Is_Original_Failure(string error) =>
+        Res.Fail<int, string>(error)
+           .Bind(it => Res.Ok<int, string>(it * 2))
+           .Match(_ => false,
+                  e => e == error);
+    
+    [Property]
+    public bool Bind_Failure_With_Fail_Function_Is_Original_Failure(string error) =>
+        Res.Fail<int, string>(error)
+           .Bind(_ => Res.Fail<int, string>(error + error))
+           .Match(_ => false,
+                  e => e == error);
+
+    [Property]
+    public bool Bind_Ok_With_Fail_Function_Is_Fail(int value) =>
+        Res.Ok<int, string>(value)
+           .Bind(_ => Res.Fail<int, string>("Oh no"))
+           .Match(_ => false,
+                  e => e == "Oh no");
+    
+    [Property]
+    public bool Bind_Ok_With_Ok_Function_Is_Ok(int value) =>
+        Res.Ok<int, string>(value)
+           .Bind(it => Res.Ok<int, string>(it * 2))
+           .Match(it => it == value * 2,
+                  _ => false);
+
 }

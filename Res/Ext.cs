@@ -85,6 +85,20 @@ namespace ComradeVanti.CSharpTools
         public static Res<TMapped, TFail> Bind<TOk, TFail, TMapped>(this Res<TOk, TFail> res, Func<TOk, Res<TMapped, TFail>> bindF) =>
             res.Match(bindF, Res.Fail<TMapped, TFail>);
 
+        /// <summary>
+        ///     Executes the given function if the result is ok and returns its output
+        ///     wrapped in another result, otherwise returns the failure
+        /// </summary>
+        /// <param name="res">The result</param>
+        /// <param name="mapF">The mapping function</param>
+        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TMapped">The type of the mapped value</typeparam>
+        /// <returns>The mapped result</returns>
+        public static Res<TMapped, TFail> Map<TOk, TFail, TMapped>(this Res<TOk, TFail> res, Func<TOk, TMapped> mapF) =>
+            res.Match(it => Res.Ok<TMapped, TFail>(mapF(it)),
+                      Res.Fail<TMapped, TFail>);
+
     }
 
 }

@@ -49,5 +49,19 @@ public class ChainingTests
            .Bind(it => Res.Ok<int, string>(it * 2))
            .Match(it => it == value * 2,
                   _ => false);
+    
+    [Property]
+    public bool Map_Failure_Is_Original_Failure(string error) =>
+        Res.Fail<int, string>(error)
+           .Map(it => it * 2)
+           .Match(_ => false,
+                  e => e == error);
+    
+    [Property]
+    public bool Map_Ok_Is_Mapped_Ok(int value) =>
+        Res.Ok<int, string>(value)
+           .Map(it => it * 2)
+           .Match(it => it == value * 2,
+                  _ => false);
 
 }

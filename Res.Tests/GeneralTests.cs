@@ -34,4 +34,24 @@ public class GeneralTests
     public bool Ok_Is_Never_Equal_To_Fail(int i, string error) =>
         !Res.Ok<int, string>(i).Equals(Res.Fail<int, string>(error));
 
+    [Property]
+    public bool Res_That_Are_Equal_Are_Same(int i) =>
+        // ReSharper disable once EqualExpressionComparison
+        Res.Ok<int, string>(i) == Res.Ok<int, string>(i);
+    
+    [Property]
+    public bool Res_That_Are_Unequal_Are_Not_Same(int i) =>
+        // ReSharper disable once EqualExpressionComparison
+        !(Res.Ok<int, string>(i) == Res.Ok<int, string>(i + 1));
+    
+    [Property]
+    public bool Res_That_Are_Equal_Are_Not_Different(int i) =>
+        // ReSharper disable once EqualExpressionComparison
+        !(Res.Ok<int, string>(i) != Res.Ok<int, string>(i));
+    
+    [Property]
+    public bool Res_That_Are_Unequal_Are_Different(int i) =>
+        // ReSharper disable once EqualExpressionComparison
+        Res.Ok<int, string>(i) != Res.Ok<int, string>(i + 1);
+
 }

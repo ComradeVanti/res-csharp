@@ -36,8 +36,13 @@ namespace ComradeVanti.CSharpTools
                     throw new Exception("Invalid type"); // Here for the compiler. Should never happen
             }
         }
+        
+        public static bool operator ==(Res<TOk, TFail> res1, Res<TOk, TFail> res2) =>
+            Equals(res1, res2);
 
-
+        public static bool operator !=(Res<TOk, TFail> res1, Res<TOk, TFail> res2) =>
+            !Equals(res1, res2);
+        
         internal sealed class Ok : Res<TOk, TFail>
         {
 

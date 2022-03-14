@@ -21,6 +21,7 @@ using `==`.
 
 - Ok
 - Fail
+- FromOp
 
 ### Result extension methods
 

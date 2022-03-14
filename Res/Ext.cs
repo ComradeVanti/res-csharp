@@ -73,8 +73,8 @@ namespace ComradeVanti.CSharpTools
         }
 
         /// <summary>
-        ///     Executes the given function if the result is ok and returns its result,
-        ///     otherwise returns the failure
+        ///     Applies the given function to the results value if present and returns the
+        ///     output
         /// </summary>
         /// <param name="res">The result</param>
         /// <param name="bindF">The binding function</param>
@@ -86,8 +86,8 @@ namespace ComradeVanti.CSharpTools
             res.Match(bindF, Res.Fail<TMapped, TFail>);
 
         /// <summary>
-        ///     Executes the given function if the result is ok and returns its output
-        ///     wrapped in another result, otherwise returns the failure
+        ///     Applies the given function to the results value if present and returns the
+        ///     output in a new result
         /// </summary>
         /// <param name="res">The result</param>
         /// <param name="mapF">The mapping function</param>

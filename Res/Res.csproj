@@ -11,5 +11,8 @@
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
+    <ItemGroup>
+        <None Include="../Icon.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
     
 </Project>

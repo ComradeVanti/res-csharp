@@ -10,7 +10,8 @@ for details.
 
 ## Features
 
-Methods for creating results are located on the `Res` class. Methods like `Map`
+Methods for creating results are located on the `Res` class. Values can also be
+implicitly cast to `Res` instances. Methods like `Map`
 or `Bind` are available as extension methods on `Res` instances for easy
 chaining.
 

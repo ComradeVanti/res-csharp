@@ -37,6 +37,13 @@ namespace ComradeVanti.CSharpTools
             }
         }
 
+
+        public static implicit operator Res<TOk, TFail>(TOk value) =>
+            Res.Ok<TOk, TFail>(value);
+
+        public static implicit operator Res<TOk, TFail>(TFail error) =>
+            Res.Fail<TOk, TFail>(error);
+
         public static bool operator ==(Res<TOk, TFail> res1, Res<TOk, TFail> res2) =>
             Equals(res1, res2);
 

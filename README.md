@@ -46,3 +46,10 @@ There are also async versions of
 - MapError
 
 They are found by simply adding "Async" to the end of the method-name
+
+There are also extension methods for `Task<Res<_,_>>` such as
+
+- MapAsyncRes
+- MapAsyncResError
+- BindAsyncRes
+- BindAsyncResAsync

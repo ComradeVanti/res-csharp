@@ -7,19 +7,6 @@ namespace ComradeVanti.CSharpTools
     public static class AsyncExt
     {
 
-        private static async Task<TMapped> Map<TValue, TMapped>(this Task<TValue> task, Func<TValue, TMapped> f)
-        {
-            var v = await task;
-            return f(v);
-        }
-
-        private static async Task<TMapped> Bind<TValue, TMapped>(this Task<TValue> task, Func<TValue, Task<TMapped>> f)
-        {
-            var v = await task;
-            return await f(v);
-        }
-
-
         /// <summary>
         ///     Applies an asynchronous mapping function to the result
         /// </summary>

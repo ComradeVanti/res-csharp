@@ -5,7 +5,8 @@
 ### Added
 
 - gitignore
-- async mapping/binding functions
+- Async mapping/binding functions
+- Mapping and Binding functions for async results
 
 ## 1.1.0
 

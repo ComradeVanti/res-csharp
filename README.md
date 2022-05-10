@@ -36,3 +36,13 @@ values like this
 - Bind
 - Map
 - MapError
+
+### Async mapping
+
+There are also async versions of
+
+- Map
+- Bind
+- MapError
+
+They are found by simply adding "Async" to the end of the method-name

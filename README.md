@@ -24,6 +24,10 @@ using `==`.
 - Fail
 - FromOp
 
+Success and Fail results may also be implicitly cast from their containing
+values like this
+`Res<int, string> res = 0`
+
 ### Result extension methods
 
 - IsOk

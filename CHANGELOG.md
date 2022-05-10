@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+
+### Fixed
+
+- Incorrect access modifiers
+
 ## 1.2.0
 
 ### Added

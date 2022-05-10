@@ -15,7 +15,7 @@
     <PropertyGroup>
         <PackageId>ComradeVanti.CSharpTools.Res</PackageId>
         <Title>Res</Title>
-        <PackageVersion>1.2.0</PackageVersion>
+        <PackageVersion>1.2.1</PackageVersion>
         <Authors>ComradeVanti</Authors>
         <Description>A C# library that mimics F#'s results</Description>
         <PackageIcon>Icon.png</PackageIcon>

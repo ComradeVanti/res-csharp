@@ -1,4 +1,4 @@
-# res
+# Res
 
 [![Nuget](https://img.shields.io/nuget/v/ComradeVanti.CSharpTools.Res)](https://www.nuget.org/packages/ComradeVanti.CSharpTools.Res)  
 A C# library that mimics F#'s results. Since the functionality and in most cases

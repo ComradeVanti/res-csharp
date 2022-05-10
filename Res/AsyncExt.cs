@@ -16,7 +16,7 @@ namespace ComradeVanti.CSharpTools
         /// <typeparam name="TError">The error type</typeparam>
         /// <typeparam name="TMapped">The mapped success type</typeparam>
         /// <returns>A task with the mapped result</returns>
-        internal static Task<Res<TMapped, TError>> MapAsync<TValue, TError, TMapped>(
+        public static Task<Res<TMapped, TError>> MapAsync<TValue, TError, TMapped>(
             this Res<TValue, TError> res,
             Func<TValue, Task<TMapped>> f) =>
             res.Match(it => f(it).Map(Res.Ok<TMapped, TError>),
@@ -31,7 +31,7 @@ namespace ComradeVanti.CSharpTools
         /// <typeparam name="TError">The error type</typeparam>
         /// <typeparam name="TMapped">The mapped success type</typeparam>
         /// <returns>A task with the mapped result</returns>
-        internal static Task<Res<TValue, TMapped>> MapErrorAsync<TValue, TError, TMapped>(
+        public static Task<Res<TValue, TMapped>> MapErrorAsync<TValue, TError, TMapped>(
             this Res<TValue, TError> res,
             Func<TError, Task<TMapped>> f) =>
             res.Match(it => Task.FromResult(Res.Ok<TValue, TMapped>(it)),
@@ -46,7 +46,7 @@ namespace ComradeVanti.CSharpTools
         /// <typeparam name="TError">The error type</typeparam>
         /// <typeparam name="TMapped">The mapped success type</typeparam>
         /// <returns>A task with the mapped result</returns>
-        internal static Task<Res<TMapped, TError>> BindAsync<TValue, TError, TMapped>(
+        public static Task<Res<TMapped, TError>> BindAsync<TValue, TError, TMapped>(
             this Res<TValue, TError> res,
             Func<TValue, Task<Res<TMapped, TError>>> f) =>
             res.Match(f, err => Task.FromResult(Res.Fail<TMapped, TError>(err)));

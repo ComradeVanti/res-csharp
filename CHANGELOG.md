@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Bump C# version
+
 ## 1.2.1
 
 ### Fixed

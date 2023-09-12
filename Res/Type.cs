@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ComradeVanti.CSharpTools
+﻿namespace ComradeVanti.CSharpTools
 {
     /// <summary>
     ///     A result of an operation which may either result in a value or an error

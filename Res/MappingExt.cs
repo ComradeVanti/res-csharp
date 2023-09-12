@@ -40,16 +40,12 @@ namespace ComradeVanti.CSharpTools
         /// <returns>The output of the executed function</returns>
         public static TOut Match<TOk, TFail, TOut>(this Res<TOk, TFail> res, Func<TOk, TOut> okF, Func<TFail, TOut> failF)
         {
-            switch (res)
+            return res switch
             {
-                case Res<TOk, TFail>.Ok ok:
-                    return okF(ok.Value);
-                case Res<TOk, TFail>.Fail fail:
-                    return failF(fail.Error);
-                default:
-                    // This should never happen
-                    throw new InvalidOperationException("Result invalid!");
-            }
+                Res<TOk, TFail>.Ok ok => okF(ok.Value),
+                Res<TOk, TFail>.Fail fail => failF(fail.Error),
+                _ => throw new InvalidOperationException("Result invalid!")
+            };
         }
 
         /// <summary>

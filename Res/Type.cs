@@ -12,28 +12,22 @@ namespace ComradeVanti.CSharpTools
     {
         public override bool Equals(object? obj)
         {
-            switch (this)
+            return this switch
             {
-                case Ok ok1 when obj is Ok ok2:
-                    return Equals(ok1.Value, ok2.Value);
-                case Fail fail1 when obj is Fail fail2:
-                    return Equals(fail1.Error, fail2.Error);
-                default:
-                    return false;
-            }
+                Ok ok1 when obj is Ok ok2 => Equals(ok1.Value, ok2.Value),
+                Fail fail1 when obj is Fail fail2 => Equals(fail1.Error, fail2.Error),
+                _ => false
+            };
         }
 
         public override int GetHashCode()
         {
-            switch (this)
+            return this switch
             {
-                case Ok ok:
-                    return EqualityComparer<TOk>.Default.GetHashCode(ok.Value);
-                case Fail fail:
-                    return EqualityComparer<TFail>.Default.GetHashCode(fail.Error);
-                default:
-                    throw new Exception("Invalid type"); // Here for the compiler. Should never happen
-            }
+                Ok ok => EqualityComparer<TOk>.Default.GetHashCode(ok.Value),
+                Fail fail => EqualityComparer<TFail>.Default.GetHashCode(fail.Error),
+                _ => throw new Exception("Invalid type")
+            };
         }
 
 

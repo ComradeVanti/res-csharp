@@ -2,10 +2,8 @@
 
 namespace ComradeVanti.CSharpTools
 {
-
     public static class MappingExt
     {
-
         /// <summary>
         ///     Executes one of two actions depending on if the result is ok or a failure
         /// </summary>
@@ -18,10 +16,10 @@ namespace ComradeVanti.CSharpTools
         {
             switch (res)
             {
-                case Res<TOk, TFail>.Ok ok:
+                case Ok<TOk, TFail> ok:
                     okAction(ok.Value);
                     break;
-                case Res<TOk, TFail>.Fail fail:
+                case Fail<TOk, TFail> fail:
                     failAction(fail.Error);
                     break;
             }
@@ -42,8 +40,8 @@ namespace ComradeVanti.CSharpTools
         {
             return res switch
             {
-                Res<TOk, TFail>.Ok ok => okF(ok.Value),
-                Res<TOk, TFail>.Fail fail => failF(fail.Error),
+                Ok<TOk, TFail> ok => okF(ok.Value),
+                Fail<TOk, TFail> fail => failF(fail.Error),
                 _ => throw new InvalidOperationException("Result invalid!")
             };
         }
@@ -73,7 +71,7 @@ namespace ComradeVanti.CSharpTools
         /// <returns>The mapped result</returns>
         public static Res<TMapped, TFail> Map<TOk, TFail, TMapped>(this Res<TOk, TFail> res, Func<TOk, TMapped> mapF) =>
             res.Match(it => Res.Ok<TMapped, TFail>(mapF(it)),
-                      Res.Fail<TMapped, TFail>);
+                Res.Fail<TMapped, TFail>);
 
         /// <summary>
         ///     Applies the given function to the results error if present and returns the
@@ -87,8 +85,6 @@ namespace ComradeVanti.CSharpTools
         /// <returns>The mapped result</returns>
         public static Res<TOk, TMapped> MapError<TOk, TFail, TMapped>(this Res<TOk, TFail> res, Func<TFail, TMapped> mapF) =>
             res.Match(Res.Ok<TOk, TMapped>,
-                      it => Res.Fail<TOk, TMapped>(mapF(it)));
-
+                it => Res.Fail<TOk, TMapped>(mapF(it)));
     }
-
 }

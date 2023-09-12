@@ -2,13 +2,11 @@
 
 namespace ComradeVanti.CSharpTools
 {
-
     /// <summary>
     ///     Contains methods for instantiating results
     /// </summary>
     public static class Res
     {
-
         /// <summary>
         ///     Creates an ok result
         /// </summary>
@@ -17,7 +15,7 @@ namespace ComradeVanti.CSharpTools
         /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
         /// <returns>The result</returns>
         public static Res<TOk, TFail> Ok<TOk, TFail>(TOk value) =>
-            new Res<TOk, TFail>.Ok(value);
+            new Ok<TOk, TFail>(value);
 
         /// <summary>
         ///     Creates a failed result
@@ -27,7 +25,7 @@ namespace ComradeVanti.CSharpTools
         /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
         /// <returns>The result</returns>
         public static Res<TOk, TFail> Fail<TOk, TFail>(TFail error) =>
-            new Res<TOk, TFail>.Fail(error);
+            new Fail<TOk, TFail>(error);
 
         /// <summary>
         ///     Creates a results from executing a function. If the function returns
@@ -70,7 +68,5 @@ namespace ComradeVanti.CSharpTools
                 return Fail<TOk, Exception>(e);
             }
         }
-
     }
-
 }

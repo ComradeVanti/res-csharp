@@ -5,6 +5,7 @@
 ### Changed
 
 - Bump C# version
+- Ok/Fail are now public top-level records
 
 ### Fixed
 

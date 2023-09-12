@@ -15,18 +15,17 @@ namespace ComradeVanti.CSharpTools
 
         public static implicit operator Res<TOk, TFail>(TFail error) =>
             Res.Fail<TOk, TFail>(error);
+    }
 
+    public sealed record Ok<TOk, TFail>(TOk Value) : Res<TOk, TFail>
+    {
+        public override string ToString() =>
+            $"Ok ({Value?.ToString()})";
+    }
 
-        internal sealed record Ok(TOk Value) : Res<TOk, TFail>
-        {
-            public override string ToString() =>
-                $"Ok ({Value?.ToString()})";
-        }
-
-        internal sealed record Fail(TFail Error) : Res<TOk, TFail>
-        {
-            public override string ToString() =>
-                $"Fail ({Error?.ToString()})";
-        }
+    public sealed record Fail<TOk, TFail>(TFail Error) : Res<TOk, TFail>
+    {
+        public override string ToString() =>
+            $"Fail ({Error?.ToString()})";
     }
 }

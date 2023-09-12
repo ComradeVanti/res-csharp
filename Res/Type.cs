@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ComradeVanti.CSharpTools
 {
-
     /// <summary>
     ///     A result of an operation which may either result in a value or an error
     /// </summary>
@@ -10,8 +10,7 @@ namespace ComradeVanti.CSharpTools
     /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
     public abstract class Res<TOk, TFail>
     {
-
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             switch (this)
             {
@@ -29,9 +28,9 @@ namespace ComradeVanti.CSharpTools
             switch (this)
             {
                 case Ok ok:
-                    return ok.Value.GetHashCode();
+                    return EqualityComparer<TOk>.Default.GetHashCode(ok.Value);
                 case Fail fail:
-                    return fail.Error.GetHashCode();
+                    return EqualityComparer<TFail>.Default.GetHashCode(fail.Error);
                 default:
                     throw new Exception("Invalid type"); // Here for the compiler. Should never happen
             }
@@ -52,7 +51,6 @@ namespace ComradeVanti.CSharpTools
 
         internal sealed class Ok : Res<TOk, TFail>
         {
-
             public TOk Value { get; }
 
 
@@ -60,13 +58,11 @@ namespace ComradeVanti.CSharpTools
                 Value = value;
 
             public override string ToString() =>
-                $"Ok ({Value.ToString()})";
-
+                $"Ok ({Value?.ToString()})";
         }
 
         internal sealed class Fail : Res<TOk, TFail>
         {
-
             public TFail Error { get; }
 
 
@@ -75,10 +71,7 @@ namespace ComradeVanti.CSharpTools
 
 
             public override string ToString() =>
-                $"Fail ({Error.ToString()})";
-
+                $"Fail ({Error?.ToString()})";
         }
-
     }
-
 }

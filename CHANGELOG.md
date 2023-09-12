@@ -6,6 +6,10 @@
 
 - Bump C# version
 
+### Fixed
+
+- Possible null-references
+
 ## 1.2.1
 
 ### Fixed

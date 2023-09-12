@@ -4,7 +4,7 @@
         <TargetFrameworks>net5.0;netcoreapp3.1;netstandard2.0;netstandard2.1</TargetFrameworks>
         <AssemblyName>ComradeVanti.CSharpTools.Res</AssemblyName>
         <RootNamespace>ComradeVanti.CSharpTools</RootNamespace>
-        <LangVersion>8</LangVersion>
+        <LangVersion>9</LangVersion>
         <DebugType>embedded</DebugType>
         <Nullable>enable</Nullable>
     </PropertyGroup>

@@ -11,21 +11,21 @@ namespace ComradeVanti.CSharpTools
         ///     Creates an ok result
         /// </summary>
         /// <param name="value">The value to be stored in the result</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
-        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TError">The type of the error if the results is a failure</typeparam>
         /// <returns>The result</returns>
-        public static Res<TOk, TFail> Ok<TOk, TFail>(TOk value) =>
-            new Ok<TOk, TFail>(value);
+        public static Res<TValue, TError> Ok<TValue, TError>(TValue value) =>
+            new Ok<TValue, TError>(value);
 
         /// <summary>
         ///     Creates a failed result
         /// </summary>
         /// <param name="error">The error to be stored in the result</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
-        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TError">The type of the error if the results is a failure</typeparam>
         /// <returns>The result</returns>
-        public static Res<TOk, TFail> Fail<TOk, TFail>(TFail error) =>
-            new Fail<TOk, TFail>(error);
+        public static Res<TValue, TError> Fail<TValue, TError>(TError error) =>
+            new Fail<TValue, TError>(error);
 
         /// <summary>
         ///     Creates a results from executing a function. If the function returns
@@ -34,18 +34,18 @@ namespace ComradeVanti.CSharpTools
         /// </summary>
         /// <param name="op">The operation</param>
         /// <param name="exnMapper">A function for mapping the exception</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
-        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TError">The type of the error if the results is a failure</typeparam>
         /// <returns>The result</returns>
-        public static Res<TOk, TFail> FromOp<TOk, TFail>(Func<TOk> op, Func<Exception, TFail> exnMapper)
+        public static Res<TValue, TError> FromOp<TValue, TError>(Func<TValue> op, Func<Exception, TError> exnMapper)
         {
             try
             {
-                return Ok<TOk, TFail>(op());
+                return Ok<TValue, TError>(op());
             }
             catch (Exception e)
             {
-                return Fail<TOk, TFail>(exnMapper(e));
+                return Fail<TValue, TError>(exnMapper(e));
             }
         }
 
@@ -55,17 +55,17 @@ namespace ComradeVanti.CSharpTools
         ///     fail
         /// </summary>
         /// <param name="op">The operation</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
         /// <returns>The result</returns>
-        public static Res<TOk, Exception> FromOp<TOk>(Func<TOk> op)
+        public static Res<TValue, Exception> FromOp<TValue>(Func<TValue> op)
         {
             try
             {
-                return Ok<TOk, Exception>(op());
+                return Ok<TValue, Exception>(op());
             }
             catch (Exception e)
             {
-                return Fail<TOk, Exception>(e);
+                return Fail<TValue, Exception>(e);
             }
         }
     }

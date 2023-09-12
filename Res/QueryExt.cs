@@ -6,20 +6,20 @@
         ///     Checks if a result is ok
         /// </summary>
         /// <param name="res">The result</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
-        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TError">The type of the error if the results is a failure</typeparam>
         /// <returns>Whether the result is ok</returns>
-        public static bool IsOk<TOk, TFail>(this Res<TOk, TFail> res) =>
-            res is Ok<TOk, TFail>;
+        public static bool IsOk<TValue, TError>(this Res<TValue, TError> res) =>
+            res is Ok<TValue, TError>;
 
         /// <summary>
         ///     Checks if a result is a failure
         /// </summary>
         /// <param name="res">The result</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
-        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TError">The type of the error if the results is a failure</typeparam>
         /// <returns>Whether the result is a failure</returns>
-        public static bool IsFail<TOk, TFail>(this Res<TOk, TFail> res) =>
-            res is Fail<TOk, TFail>;
+        public static bool IsFail<TValue, TError>(this Res<TValue, TError> res) =>
+            res is Fail<TValue, TError>;
     }
 }

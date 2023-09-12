@@ -10,16 +10,16 @@ namespace ComradeVanti.CSharpTools
         /// <param name="res">The result</param>
         /// <param name="okAction">The action to execute if the result it ok</param>
         /// <param name="failAction">The action to execute if the result is a failure</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
-        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
-        public static void Match<TOk, TFail>(this Res<TOk, TFail> res, Action<TOk> okAction, Action<TFail> failAction)
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TError">The type of the error if the results is a failure</typeparam>
+        public static void Match<TValue, TError>(this Res<TValue, TError> res, Action<TValue> okAction, Action<TError> failAction)
         {
             switch (res)
             {
-                case Ok<TOk, TFail> ok:
+                case Ok<TValue, TError> ok:
                     okAction(ok.Value);
                     break;
-                case Fail<TOk, TFail> fail:
+                case Fail<TValue, TError> fail:
                     failAction(fail.Error);
                     break;
             }
@@ -32,16 +32,16 @@ namespace ComradeVanti.CSharpTools
         /// <param name="res">The result</param>
         /// <param name="okF">The function to execute if the result it ok</param>
         /// <param name="failF">The function to execute if the result is a failure</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
-        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TError">The type of the error if the results is a failure</typeparam>
         /// <typeparam name="TOut">The type of the function output</typeparam>
         /// <returns>The output of the executed function</returns>
-        public static TOut Match<TOk, TFail, TOut>(this Res<TOk, TFail> res, Func<TOk, TOut> okF, Func<TFail, TOut> failF)
+        public static TOut Match<TValue, TError, TOut>(this Res<TValue, TError> res, Func<TValue, TOut> okF, Func<TError, TOut> failF)
         {
             return res switch
             {
-                Ok<TOk, TFail> ok => okF(ok.Value),
-                Fail<TOk, TFail> fail => failF(fail.Error),
+                Ok<TValue, TError> ok => okF(ok.Value),
+                Fail<TValue, TError> fail => failF(fail.Error),
                 _ => throw new InvalidOperationException("Result invalid!")
             };
         }
@@ -52,12 +52,12 @@ namespace ComradeVanti.CSharpTools
         /// </summary>
         /// <param name="res">The result</param>
         /// <param name="bindF">The binding function</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
-        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TError">The type of the error if the results is a failure</typeparam>
         /// <typeparam name="TMapped">The type of the mapped value</typeparam>
         /// <returns>The mapped result</returns>
-        public static Res<TMapped, TFail> Bind<TOk, TFail, TMapped>(this Res<TOk, TFail> res, Func<TOk, Res<TMapped, TFail>> bindF) =>
-            res.Match(bindF, Res.Fail<TMapped, TFail>);
+        public static Res<TMapped, TError> Bind<TValue, TError, TMapped>(this Res<TValue, TError> res, Func<TValue, Res<TMapped, TError>> bindF) =>
+            res.Match(bindF, Res.Fail<TMapped, TError>);
 
         /// <summary>
         ///     Applies the given function to the results value if present and returns the
@@ -65,13 +65,13 @@ namespace ComradeVanti.CSharpTools
         /// </summary>
         /// <param name="res">The result</param>
         /// <param name="mapF">The mapping function</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
-        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TError">The type of the error if the results is a failure</typeparam>
         /// <typeparam name="TMapped">The type of the mapped value</typeparam>
         /// <returns>The mapped result</returns>
-        public static Res<TMapped, TFail> Map<TOk, TFail, TMapped>(this Res<TOk, TFail> res, Func<TOk, TMapped> mapF) =>
-            res.Match(it => Res.Ok<TMapped, TFail>(mapF(it)),
-                Res.Fail<TMapped, TFail>);
+        public static Res<TMapped, TError> Map<TValue, TError, TMapped>(this Res<TValue, TError> res, Func<TValue, TMapped> mapF) =>
+            res.Match(it => Res.Ok<TMapped, TError>(mapF(it)),
+                Res.Fail<TMapped, TError>);
 
         /// <summary>
         ///     Applies the given function to the results error if present and returns the
@@ -79,12 +79,12 @@ namespace ComradeVanti.CSharpTools
         /// </summary>
         /// <param name="res">The result</param>
         /// <param name="mapF">The mapping function</param>
-        /// <typeparam name="TOk">The type of the value if the result is ok</typeparam>
-        /// <typeparam name="TFail">The type of the error if the results is a failure</typeparam>
+        /// <typeparam name="TValue">The type of the value if the result is ok</typeparam>
+        /// <typeparam name="TError">The type of the error if the results is a failure</typeparam>
         /// <typeparam name="TMapped">The type of the mapped value</typeparam>
         /// <returns>The mapped result</returns>
-        public static Res<TOk, TMapped> MapError<TOk, TFail, TMapped>(this Res<TOk, TFail> res, Func<TFail, TMapped> mapF) =>
-            res.Match(Res.Ok<TOk, TMapped>,
-                it => Res.Fail<TOk, TMapped>(mapF(it)));
+        public static Res<TValue, TMapped> MapError<TValue, TError, TMapped>(this Res<TValue, TError> res, Func<TError, TMapped> mapF) =>
+            res.Match(Res.Ok<TValue, TMapped>,
+                it => Res.Fail<TValue, TMapped>(mapF(it)));
     }
 }

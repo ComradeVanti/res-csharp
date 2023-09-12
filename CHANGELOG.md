@@ -6,6 +6,7 @@
 
 - Bump C# version
 - Ok/Fail are now public top-level records
+- Rename type parameters. TOk is now TValue and TFail is not TError
 
 ### Fixed
 

@@ -5,14 +5,14 @@ namespace ComradeVanti.CSharpTools;
 public static class ResGen
 {
 
-    private static Gen<Res<TOk, TFail>> GenOk<TOk, TFail>() =>
-        Arb.Generate<TOk>().Select(Res.Ok<TOk, TFail>);
+    private static Gen<Res<TValue, TError>> GenOk<TValue, TError>() =>
+        Arb.Generate<TValue>().Select(Res.Ok<TValue, TError>);
 
-    private static Gen<Res<TOk, TFail>> GenFail<TOk, TFail>() =>
-        Arb.Generate<TFail>().Select(Res.Fail<TOk, TFail>);
+    private static Gen<Res<TValue, TError>> GenFail<TValue, TError>() =>
+        Arb.Generate<TError>().Select(Res.Fail<TValue, TError>);
 
-    private static Gen<Res<TOk, TFail>> GenRes<TOk, TFail>() =>
-        Gen.OneOf(GenOk<TOk, TFail>(), GenFail<TOk, TFail>());
+    private static Gen<Res<TValue, TError>> GenRes<TValue, TError>() =>
+        Gen.OneOf(GenOk<TValue, TError>(), GenFail<TValue, TError>());
 
     public static Arbitrary<Res<int, string>> TestRes() =>
         Arb.From(GenRes<int, string>());
